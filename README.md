@@ -37,3 +37,25 @@ J'ai remarqué que sinon, si on le fait comme écrit dans le sujet, cela effectu
 
 
 Il est évidemment nécessaire de faire apparaître des accolades dans la commande passée en paramètre, simplement comme celles-ci peuvent figurer à différents endroits il ne m'a pas semblé opportun de les indiquer, le sujet vous demande en effet d'utiliser des pipes et ceci vous demandera d'intégrer des accolades avant la fin de la commande.
+
+Nous sommes actuellement entrain de le projet en faisant bloc par bloc les différentes fonctionnalités avant de tout regrouper ensemble. J'aimerai juste savoir si la liste des bibliothèques ci-dessous sont toutes autorisées, pour continuer à travailler efficacement et dans la légalité. Je n'ai pas eu à les installer donc je présume que c'est ok mais je préfère demander pour ne pas avoir de surprises : errno.h, stdio.h, string.h, sys\types.h, unistd.h, dirent.h, err.h, stddef.h, sys\stat.h.
+
+Ces librairies sont toutes nativement installées sur votre machine, vous êtes donc en droit de les utiliser, vous êtes en revanche invités à privilégier l'utilisation des fonctions read et write pour vos affichages et lectures en ligne de commande, l'utilisation de ces fonctions sera valorisée par rapport à l'utilisation de printf et scanf qui sont de plus haut niveau.
+
+
+
+Ayant créé le Gitlab aujourd'hui, j'ai cru comprendre que la méthode que nous utilisons pour exec était illégale à cause de l'emploi d'execvp. Cependant, pour éviter toute ambiguité, pourriez-vous s'il-vous-plaît me le confirmer, auquel cas nous ne savons vraiment pas comment faire.
+
+Voici le code utilisé
+
+void execCmdOnFile_aux(int inFd, int outFd, char ** cmd, int* childProcCnt){    
+    if(!fork()){
+        dup2(inFd, 0);
+        dup2(outFd, 1);
+        execvp(cmd[0], cmd);        
+    }else{
+        (*childProcCnt)++;
+    }
+}
+
+Cette utilisation de execvp est on ne peut plus légale, c'est l'utilisation d'execvp pour exécuter directement les commandes indiquées dans le sujet qui est prohibée en raison du fait qu'il serait considéré comme une tricherie d'utiliser des binaires de votre système au lieu d'implanter les fonctionnalités demandées dans le sujet par vous-mêmes.
