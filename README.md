@@ -59,3 +59,16 @@ void execCmdOnFile_aux(int inFd, int outFd, char ** cmd, int* childProcCnt){
 }
 
 Cette utilisation de execvp est on ne peut plus légale, c'est l'utilisation d'execvp pour exécuter directement les commandes indiquées dans le sujet qui est prohibée en raison du fait qu'il serait considéré comme une tricherie d'utiliser des binaires de votre système au lieu d'implanter les fonctionnalités demandées dans le sujet par vous-mêmes.
+
+1) Peut on utiliser la bibliothèque sys/stat.h pour accéder aux informations nécessaires pour l'option -l (permissions etc), si non, quelle est l'alternative ? 
+
+Oui, toute bibliothèque installée par défaut sur votre machine est utilisable.
+
+
+2) Avec la fonction find, on peut par exemple taper find *.c pour avoir uniquement les fichiers terminant par C. Qu'est-il attendu pour la fonction rsfind lorsque l'utilisateur utilise l'astérisque ? 
+
+I s'agit d'une des options suggérées dans le sujet, vous pouvez une fois que vous aurez terminé le corps obligatoire du projet vous attacher à l'implantation d'une des options suggérées mais dans l'attente il ne vous est pas demandé de le faire.
+
+3) Je ne comprend pas l’intérêt de l'argument --print, car rsfind affiche les résultats quoi qu'il en soit non ? Même pour les fonctions find où ls je ne vois pas ce qu'apporte cette option. 
+
+Non, si l'affichage n'est pas demandé il n'est pas demandé d'afficher, si aucune option particulière n'est précisée il faut considérer print comme option par défaut, autrement si jamais vous utilisez -l ou --exec il n'y a pas d'affichage à faire. Expérimentez dans votre terminal avec find, si vous utilisez -exec et pas -print vous n'aurez pas d'affichage des fichiers trouvés, à moins bien sûr que vous ne demandiez un echo {} dans le exec.
