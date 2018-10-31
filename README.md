@@ -72,3 +72,10 @@ I s'agit d'une des options suggérées dans le sujet, vous pouvez une fois que v
 3) Je ne comprend pas l’intérêt de l'argument --print, car rsfind affiche les résultats quoi qu'il en soit non ? Même pour les fonctions find où ls je ne vois pas ce qu'apporte cette option. 
 
 Non, si l'affichage n'est pas demandé il n'est pas demandé d'afficher, si aucune option particulière n'est précisée il faut considérer print comme option par défaut, autrement si jamais vous utilisez -l ou --exec il n'y a pas d'affichage à faire. Expérimentez dans votre terminal avec find, si vous utilisez -exec et pas -print vous n'aurez pas d'affichage des fichiers trouvés, à moins bien sûr que vous ne demandiez un echo {} dans le exec.
+
+Le sujet précise une équivalence entre le rendu attendu et certaines commandes, par exemple "rsfind DOSSIER -l = find DOSSIER -exec ls -l {} \ ;"
+Cette équivalence doit-elle être respectée au caractère près, ou doit-elle seulement renvoyer la même information ?
+En d'autres termes, doit-on par exemple prendre en compte l'alignement de chacune des information, et donc adapter le nombre d'espaces à print (pour le nombre d'octets ou encore le mois de création par exemple), ou un décalage selon les ligne est accepté ?
+Les tests automatiques réalisés pour noter le projet prendront-ils cela en compte ?
+
+La réponse est oui, l'exactitude au caractère prêt est attendue dans les affichages. Je reconnais que dans le cas du ls -l ce sera fastidieux, moi-même j'y ai passé un certain temps mais ce genre de passages est inhérent à tout projet en informatique, vous y serez confrontés en entreprise alors autant commencer tout de suite. Je suis entièrement prêt à répondre à toute question relative à l'obtention des différentes informations affichées par la commande ls -l. Les documentations sont présentes sur internet mais vous gagnerez sans doute du temps en m'adressant vos questions même si la recherche de tutoriels adaptés est un très bon exercice pour votre pratique de développement.
