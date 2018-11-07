@@ -79,3 +79,17 @@ En d'autres termes, doit-on par exemple prendre en compte l'alignement de chacun
 Les tests automatiques réalisés pour noter le projet prendront-ils cela en compte ?
 
 La réponse est oui, l'exactitude au caractère prêt est attendue dans les affichages. Je reconnais que dans le cas du ls -l ce sera fastidieux, moi-même j'y ai passé un certain temps mais ce genre de passages est inhérent à tout projet en informatique, vous y serez confrontés en entreprise alors autant commencer tout de suite. Je suis entièrement prêt à répondre à toute question relative à l'obtention des différentes informations affichées par la commande ls -l. Les documentations sont présentes sur internet mais vous gagnerez sans doute du temps en m'adressant vos questions même si la recherche de tutoriels adaptés est un très bon exercice pour votre pratique de développement.
+
+J'ai quelques questions à propos des tests blancs, je voudrais savoir :
+
+- Si le test blanc va juger juste la partie du projet qui a été faite ou bien il va renvoyer des erreurs si toutes les étapes ne sont pas encore finies.
+
+Oui, le test blanc va exécuter tous les items de la spécification qui vous a été fournie de sorte à vous fournir un point sur l'avancé de votre projet. Ce test vous permettra d'évaluer la note qui serait la votre si nous étions déjà à la fin du projet, je l'utiliserai encore pour la notation finale.
+
+- Si le Makefile doit être fait et présent dans notre dépôt.
+
+Oui, la première étape du test blanc consistera à lancer la compilation de votre projet via le Makefile, si cette étape ne fonctionne pas alors tout le reste sera caduc et votre projet sera évalué en conséquence, veillez donc bien à avoir un Makefile opérationnel dans votre dépôt.
+
+- Si on doit avoir sur notre dépôt que la dernière version de notre fichier rsfind
+
+C'est nativement pris en compte par git, si votre Makefile est bien conçu il ne devrait pas y avoir de problème, veillez simplement bien à ce que le nom de votre exécutable soit rsfind.
