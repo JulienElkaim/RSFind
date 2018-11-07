@@ -93,3 +93,8 @@ Oui, la première étape du test blanc consistera à lancer la compilation de vo
 - Si on doit avoir sur notre dépôt que la dernière version de notre fichier rsfind
 
 C'est nativement pris en compte par git, si votre Makefile est bien conçu il ne devrait pas y avoir de problème, veillez simplement bien à ce que le nom de votre exécutable soit rsfind.
+
+    Nous avons du mal à comprendre la syntaxe demandée pour les pipes du --exec, faut il que l'utilisateur écrire des pipes sous la formes de plusieurs commandes : ./rsfind --exec "CMD1" "CMD2" ./          (Pour pipe CMD1 sur CMD2)
+ou : ./rsfind --exec "CMD1 | CMD2" ./
+
+La syntaxe attendue est rsfind . --exec "cat {} | cat | cat".
