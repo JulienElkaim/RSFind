@@ -98,3 +98,11 @@ C'est nativement pris en compte par git, si votre Makefile est bien conçu il ne
 ou : ./rsfind --exec "CMD1 | CMD2" ./
 
 La syntaxe attendue est rsfind . --exec "cat {} | cat | cat".
+
+Les fonctions de type exec sont autorisées pour l'implémentation de la commande 'exec' de rsfind, mais est-il autorisé de faire quelque chose du genre execlp("sh","sh","-c",command,NULL) ?
+
+Non, il est attendu que vous implantiez par vous-mêmes les spécifications du projet, en somme pour toute fonctionnalité autre que l'option --exec l'utilisation des fonctions de la famille exec est strictement interdite, il serait autrement trop simple de se cantonner à faire un "bête" copié collé des commandes de l'énoncé dans des exec ajustés de sorte à avoir le résultat attendu.
+
+L'équivalence "rsfind DOSSIER -l = find DOSSIER -exec ls -l {} \;" est un peu étrange puisque ls s'exécute aussi sur les dossiers que trouve find.
+
+Oui, il s'agit en effet d'une coquille du sujet, il faut prendre en compte l'équivalence avec find DOSSIER -exec ls -l -d {} \;, l'option -d permet en effet de bloquer le détail du contenu des répertoires.
