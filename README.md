@@ -106,3 +106,17 @@ Non, il est attendu que vous implantiez par vous-mêmes les spécifications du p
 L'équivalence "rsfind DOSSIER -l = find DOSSIER -exec ls -l {} \;" est un peu étrange puisque ls s'exécute aussi sur les dossiers que trouve find.
 
 Oui, il s'agit en effet d'une coquille du sujet, il faut prendre en compte l'équivalence avec find DOSSIER -exec ls -l -d {} \;, l'option -d permet en effet de bloquer le détail du contenu des répertoires.
+
+d'après le sujet il est possible de combiner l'option -t et l'option -i. Cela nous semble cependant étonnant de rechercher un champs texte dans un fichier image. Pouvez-vous, s'il vous plaît, nous confirmer que l'on aimerait vraiment combiner ces deux options ?
+
+En effet il vous est demandé de soutenir la combinaison d'options, -t, -i et --name peuvent être utilisées simultanément dans une recherche de fichiers, -i et -t renverra les fichiers images contenant une certaine chaîne, -i et --name les fichiers images d'un certain nom et -t et --name les fichiers d'un certain nom contenant une certaine chaîne.
+
+Nous pensions aussi à d'autres combinaisons possibles avec exec : est-ce que exec est combinable avec --name ou -t ou encore -i ?
+
+En effet, les commandes --exec, --print et -l peuvent elles aussi être combinées. La première série d'options (-i, -t et --name) définissent des critères sur la recherche de fichiers, les trois autres options des modes d'affichages différents. Dans le cas où vous demandez plusieurs affichages il faut faire un affichage dans l'ordre print / listing / exec si je ne m'abuse mais il faudrait relire le sujet qui vous informera à ce propos.
+
+Je souhaiterais m’intéresser au fichier YML, vous aviez parlé d'un fichier : .gitlab-ci.yml, je voudrais le réaliser car ses apports pourraient être intéressant pour notre projet et la réalisation d'une batterie de test exécuté à chaque push pourrait être une bonne compétences à acquérir.
+
+Très bonne initiative, je félicite encore le(s) groupe(s) concerné(s) pour cette marque d'investissement et de professionnalisme. Voici ci-dessous un lien qui permettra à tous les élèves intéressés d'en faire de même, la présence d'un tel fichier de tests sera prise en compte lors de l'évaluation finale comme marque d'un investissement particulier dans la mise en place d'une politique de tests rigoureuse :
+
+https://docs.gitlab.com/ee/ci/yaml/
