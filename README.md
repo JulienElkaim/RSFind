@@ -120,3 +120,13 @@ Je souhaiterais m’intéresser au fichier YML, vous aviez parlé d'un fichier :
 Très bonne initiative, je félicite encore le(s) groupe(s) concerné(s) pour cette marque d'investissement et de professionnalisme. Voici ci-dessous un lien qui permettra à tous les élèves intéressés d'en faire de même, la présence d'un tel fichier de tests sera prise en compte lors de l'évaluation finale comme marque d'un investissement particulier dans la mise en place d'une politique de tests rigoureuse :
 
 https://docs.gitlab.com/ee/ci/yaml/
+
+Je tente de développer les extensions pour le projet de RS.
+J'ai une question à propos de l'extension --ename:
+Est-ce une expression régulière qu'il faut passer en paramètre ou une expression composée de métacaractère shell ?
+Par exemple, faut-il passer:
+.*.txt pour obtenir les fichiers avec pour extension txt ou bien *.txt comme pour find?
+Si c'est la deuxième solution, faut-il toujours utiliser la bibliothèque libpcre ?
+Si c'est bien le cas, je n'ai pas trouvé, malgré mes recherches, la manière de configurer pcre pour détecter les métacaractères shell au lieu des expressions régulières "classiques".
+
+L'option --ename accepte bien une expression contenant des méta-caractères shell. Je n'ai pas trouvé moi non plus de solution simple pour parser ce genre d'expressions, je pense que le mieux est de faire une sorte d'association entre les méta-caractères shell et des expressions régulières équivalentes (ex. * -> .*).
