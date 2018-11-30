@@ -130,3 +130,9 @@ Si c'est la deuxième solution, faut-il toujours utiliser la bibliothèque libpc
 Si c'est bien le cas, je n'ai pas trouvé, malgré mes recherches, la manière de configurer pcre pour détecter les métacaractères shell au lieu des expressions régulières "classiques".
 
 L'option --ename accepte bien une expression contenant des méta-caractères shell. Je n'ai pas trouvé moi non plus de solution simple pour parser ce genre d'expressions, je pense que le mieux est de faire une sorte d'association entre les méta-caractères shell et des expressions régulières équivalentes (ex. * -> .*).
+
+Suite à ce que vous m'avez dit hier à propos des métacaractères shell (qui sont différents du regex), j'ai effectué des recherches pour implémenter de la meilleure manière possible une fonction convertissant le regex en métacaractères afin d'utiliser libpcre. Or, durant mes recherches, je suis tombé sur une page du man présentant une fonctionnalité qui correspond totalement à ce problème mais sans utiliser libpcre et à priori sans installer de bibliothèque supplémentaire.
+Voici le lien correspondant: http://manpagesfr.free.fr/man/man3/glob.3.html
+Pourriez-vous me dire si nous sommes autorisés à utiliser cette fonction ?
+
+Oui tout à fait, vous pouvez utiliser cette bibliothèque si elle vous conduit à réaliser la fonctionnalité attendue sans avoir à installer de librairies externes.
