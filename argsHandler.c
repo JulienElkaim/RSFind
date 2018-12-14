@@ -43,6 +43,16 @@ int optDispatcher(int argc, char** argv, int* lOpt, int* tOpt, char** tArg, int*
 
 	int iOption =0; //Useful to find the long_option characteristic
 	int rsFindOptions;
+
+	if (argc==1){
+		*pOpt = 1;
+	}else{
+		if (argc==2 && argv[1][0]!='-'){
+			
+			*pOpt=1;
+		}
+	}
+
 	while((rsFindOptions = getopt_long(argc, argv, "lt:in:e:p", myLongOptions, &iOption)) != -1){
 		
 		switch(rsFindOptions){ 
@@ -75,12 +85,14 @@ int optDispatcher(int argc, char** argv, int* lOpt, int* tOpt, char** tArg, int*
 				break;
 			case 'p':
 				*pOpt = 1;
+				break;
 			default:
 				//invalid argument ! 
 				return 1;
 		}
 		
 	}
+
 	return 0;
 
 }

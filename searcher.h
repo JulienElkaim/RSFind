@@ -1,5 +1,7 @@
 #ifndef SEARCHER_H
 #define SEARCHER_H
 
-int finderRecursive(char* myPath, char* previousPath, char** strStack);
+#include "myFunctionalLib.h"
+
+int finderRecursive(listOfFiles* list);
 #endif
