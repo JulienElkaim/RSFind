@@ -5,8 +5,10 @@
 #include "myFunctionalLib.h"
 #include "argsHandler.h"
 #include "searcher.h"
+#include "optionsToApply.h"
 #include <string.h>
 #include <dirent.h>
+
 
 
 
@@ -81,6 +83,9 @@ int main(int argc, char** argv){
 	
 	//==========RESTRICTIONS==========
 	if (nOpt){
+		printf("BEFORE: %s\n", myList -> myFile -> myName);
+		myList = applyNOption(myList, nArg);
+		printf("AFTER: %s\n", myList -> myFile -> myName);
 		//Apply the --name restriction with nArg
 		//JULIEN
 	}
