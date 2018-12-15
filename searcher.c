@@ -25,8 +25,10 @@ int finderRecursive(listOfFiles* list){
 
 	char* completePATH = malloc(sizeof(char)*(strlen(list-> myFile -> myName) + strlen(list ->  myFile -> myPath) + 2) );
 	strcpy(completePATH,list -> myFile -> myPath);
-	if(strlen(list -> myFile -> myPath)>0)
+	slashItCorrectly(&completePATH);
+	/*if(strlen(list -> myFile -> myPath)>0)
 		myStrCat(&completePATH, "/");
+	*/
 	myStrCat(&completePATH, list-> myFile -> myName);
 
 	DIR* currDir;

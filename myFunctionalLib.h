@@ -29,7 +29,10 @@ MyFile* create_File(char* name, char* path, mode_t* perms, nlink_t* links, uid_t
 listOfFiles* insertFile(MyFile* newFile, listOfFiles* list);
 void printListOfFiles (listOfFiles* list);
 void myListOfFilesPtrCpy(listOfFiles** dest, listOfFiles* ptrToCpy);
+int nextFile(listOfFiles** list);
+int supprNextFileOf(listOfFiles** list);
 
+char* completePathBuilder(listOfFiles* list);
 void myStrPtrCpy(char** dest, char* ptrToCpy);
 void myStrCat(char** dest, char* c);
 void slashItCorrectly(char** str);

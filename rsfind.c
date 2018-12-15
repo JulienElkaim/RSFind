@@ -117,9 +117,22 @@ int main(int argc, char** argv){
 			//JULIEN
 		}
 	}
+	/*
+	listOfFiles* testList = malloc(sizeof(listOfFiles));
+	testList = myList;
+	printf("\n\n");
+	printf("Complete Path first Elt: %s\n", completePathBuilder( testList));
+	nextFile(&testList);
+	printf("Complete Path second Elt: %s\n", completePathBuilder( testList));
+	printf("\n\n");
+	printf("CompletePath third elt BEFORE: %s\n", completePathBuilder(testList -> next));
+	printf("CompletePath fourth elt BEFORE: %s\n", completePathBuilder(testList-> next -> next));
+	supprNextFileOf(&testList);
+	printf("\n\n");
+	printf("CompletePath third elt AFTER: %s\n", completePathBuilder(testList -> next));
+	printf("CompletePath fourth elt AFTER: %s\n", completePathBuilder(testList-> next -> next));
 
-
-
+	*/
 	return 0;
 }
 

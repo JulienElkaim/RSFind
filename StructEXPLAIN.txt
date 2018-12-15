@@ -34,8 +34,8 @@ struct _myDirAndFileList{
 La liste commence avec le myList dans le Main. Plusieurs fonctions sont implémentées
 
 insertFile (MyFile* file, listOfFiles* list)	///*** Ajoute le fichier à la toute fin de la liste
-supprFile (MyFile* file)			///*** Supprime l'élément ! SUIVANT ! de file.
-nextFile(MyFile** file)				///*** La variable devient l'élément suivant. 
+supprNextFileOf (listOfFiles** list)			///*** Supprime l'élément ! SUIVANT ! de file.
+nextFile(listOfFiles** list)			///*** La variable devient l'élément suivant. 
 
 ============= BEST PRACTICES ============= 
 
