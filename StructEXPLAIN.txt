@@ -1,0 +1,56 @@
+============= LA STRUCTURE =============
+
+Les données sont enregistrées dans une liste (structure récursive).
+Chaque élément est enregistré dans un MyFile, une structure adaptée aux besoins.
+
+
+Déclarations:
+
+struct _MyFile{
+
+	char* myPrint; 		/* Format d'impression, dépendant de myName et myPath. */
+	char* myName; 		/* Nom du fichier/folder. */
+	char* myPath;		/* Chemin pour accéder au fichier, sans le / final. */
+	mode_t* myPerms;	/* Les permissions du fichier/folder. */
+	nlink_t* myLinks;	/* Liens symboliques, inodes? */
+	uid_t* myUsrId;		/* Identité de l'utilisateur propriétaire. */
+	gid_t* myGrpId;		/* Idendité du groupe propriétaire. */
+	off_t* mySizeFile;	/* Taille en Bit du fichier/folder. */
+	time_t* myLastMod;	/* Date de la dernière modification. */
+
+}; typedef struct _MyFile MyFile;
+
+
+struct _myDirAndFileList{
+
+	MyFile* myFile;			/* Elément actuel de la liste. */
+	struct _myDirAndFileList* next;	/* Prochain élément de la liste.*/
+
+}; typedef struct _myDirAndFileList listOfFiles;
+
+
+============= FUNCTIONS =============
+
+La liste commence avec le myList dans le Main. Plusieurs fonctions sont implémentées
+
+insertFile (MyFile* file, listOfFiles* list)	///*** Ajoute le fichier à la toute fin de la liste
+supprFile (MyFile* file)			///*** Supprime l'élément ! SUIVANT ! de file.
+nextFile(MyFile** file)				///*** La variable devient l'élément suivant. 
+
+============= BEST PRACTICES ============= 
+
+///PARCOURS\\\
+Quand on parcours la liste, il vaut mieux faire passer ses tests au NEXT element.
+Pourquoi? Car la suppression des éléments se fait sur le NEXT element. Ainsi, on ne peux pas supprimer de la liste l'élément que l'on est actuellement entrain de pointer.
+Cas particulier //// FIRST Elt de la liste,normalement le folder lui même, lui faire passer les test juste avant la boucle.
+
+///INSERT\\\
+insertFile se fait toujours en FIN d'une liste.
+Si cas exceptionnel, on voudrait ajouter un élément FILE APRES un élément noté fileY, alors il faudrait: - récupérer le pointeur next dans un pointeur à part, disons tempoNext.
+- changer le next de fileY en NULL.
+- faire un inserFile(FILE, fileY).
+- définir le next du next de fileY en tempoNext: fileY -> next -> next = tempoNext.
+
+
+
+
