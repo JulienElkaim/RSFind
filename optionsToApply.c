@@ -6,7 +6,45 @@
 #include "optionsToApply.h"
 #include <string.h>
 #include <dirent.h>
+//#include <debian/magic.h> // Find le good h pour mime type
 #include "myFunctionalLib.h"
+
+/*listOfFiles* applyIOption(listOfFiles* list){
+		listOfFiles* tempList = malloc(sizeof(listOfFiles));
+	tempList = list; // Garder un pointeur sur le premier
+	char* mime;
+	magic_t magic;
+	while(list -> next != NULL){
+		magic = magic_open(MAGIC_MIME_TYPE);
+		magic_load(magic,NULL);
+		magic_compile(magic,NULL);
+		mime = magic_file(magic,list -> next -> myFile -> myName);
+		if(strstr(mime,"image/")==NULL){
+			//N'est pas une image
+			supprNextFileOf(&list);
+
+		}else{
+			//Est une image
+			nextFile(&list);
+		}
+		magic_close(magic);	
+	}
+
+	// Faire le test sur le premier element
+	magic = magic_open(MAGIC_MIME_TYPE);
+	magic_load(magic,NULL);
+	magic_compile(magic,NULL);
+	mime = magic_file(magic,tempList -> myFile -> myName);
+	
+	if(strstr(mime,"image/")==NULL){
+		//N'est pas une image
+		tempList = tempList -> next;
+	}
+
+	return tempList;
+}
+
+*/
 
 
 listOfFiles* applyNOption(listOfFiles* list, char* str){

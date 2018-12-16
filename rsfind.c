@@ -8,7 +8,7 @@
 #include "optionsToApply.h"
 #include <string.h>
 #include <dirent.h>
-
+#include <time.h>
 
 
 
@@ -83,14 +83,13 @@ int main(int argc, char** argv){
 	
 	//==========RESTRICTIONS==========
 	if (nOpt){
-		printf("BEFORE: %s\n", myList -> myFile -> myName);
 		myList = applyNOption(myList, nArg);
-		printf("AFTER: %s\n", myList -> myFile -> myName);
 		//Apply the --name restriction with nArg
 		//JULIEN
 	}
 
 	if (iOpt){
+		//myList = applyIOption(myList);
 		//Apply the -i restriction
 		//JULIEN
 	}
