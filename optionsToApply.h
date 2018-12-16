@@ -5,5 +5,9 @@
 
 listOfFiles* applyNOption(listOfFiles* list, char* str);
 listOfFiles* applyIOption(listOfFiles* list);
+listOfFiles* applyLOption(listOfFiles* list);
+void applyLOptionPrint(listOfFiles* list,int isPOpt);
+
+
 
 #endif

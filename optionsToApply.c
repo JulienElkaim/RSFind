@@ -6,15 +6,21 @@
 #include "optionsToApply.h"
 #include <string.h>
 #include <dirent.h>
-#include <magic.h> // Find le good h pour mime type
+#include <magic.h>
 #include "myFunctionalLib.h"
-//#define MIME_DB "/usr/share/file/magic.mgc"
+
+
 
 listOfFiles* applyIOption(listOfFiles* list){
-		listOfFiles* tempList = malloc(sizeof(listOfFiles));
-	tempList = list; // Garder un pointeur sur le premier
+	
 	char* mime;
 	magic_t magic;
+	listOfFiles* tempList = malloc(sizeof(listOfFiles));
+	tempList = list;
+
+
+	//========== APPLY Restriction on EVERY \{first} ========== 
+
 	while(list -> next != NULL){
 		magic = magic_open(MAGIC_MIME_TYPE);
 		magic_load(magic,NULL);
@@ -30,32 +36,34 @@ listOfFiles* applyIOption(listOfFiles* list){
 		magic_close(magic);	
 	}
 
-	// Faire le test sur le premier element
+	//========== APPLY Restriction on first ========== 
+
 	magic = magic_open(MAGIC_MIME_TYPE);
 	magic_load(magic,NULL);
-	magic_compile(magic,NULL);
-	mime = (char*)magic_file(magic,tempList -> myFile -> myName);
-	
+	mime = (char*)magic_file(magic,completePathBuilder(tempList) );
 	if(strstr(mime,"image/")==NULL){
-		//N'est pas une image
-		tempList = tempList -> next;
+		tempList = tempList -> next; //N'est pas une image
 	}
 
 	return tempList;
+
 }
 
 
 
+
 listOfFiles* applyNOption(listOfFiles* list, char* str){
-	//Comparer le nom de l'élement avec str
+	
 	listOfFiles* tempList = malloc(sizeof(listOfFiles));
-	tempList = list; // Garder un pointeur sur le premier
+	tempList = list;
+
+	//========== APPLY Restriction on EVERY \{first} ========== 
 	while(list -> next != NULL){
 		
 		if(strlen(list -> next -> myFile -> myName) >= strlen(str)){
 			//myName est assez grand pour comporter ce prérequis
 			
-			if(strstr(list -> next -> myFile -> myName, str) != NULL){
+			if(strcmp(list -> next -> myFile -> myName, str) ==0 ){
 				// Le nom est dans le nom de fichier
 				nextFile(&list);
 			}else{
@@ -68,14 +76,72 @@ listOfFiles* applyNOption(listOfFiles* list, char* str){
 			supprNextFileOf(&list);
 
 		}
-		
 	}
 
-	// Faire le test sur le premier element
-	if(strstr(tempList -> myFile -> myName, str) == NULL){
+	//========== APPLY Restriction on first ========== 
+	if(strcmp(tempList -> myFile -> myName, str) !=0 ){
 		//Le premier elt ne possede pas le nom dans son nom
 		tempList = tempList -> next;
 	}
 
 	return tempList;
+}
+
+
+
+listOfFiles* applyLOption(listOfFiles* list){
+
+	listOfFiles* tempList = malloc(sizeof(listOfFiles));
+	tempList = list;
+
+	struct stat current_file;
+	if(!stat(completePathBuilder(list), &current_file)){	
+    	list -> myFile -> myStat = current_file;
+	}
+	while(nextFile(&list)){
+		    
+	    if(!stat(completePathBuilder(list), &current_file)){	
+	    	list -> myFile -> myStat = current_file;
+		}
+	}
+
+	return tempList;
+}
+
+
+
+void applyLOptionPrint(listOfFiles* list,int isPOpt){
+
+    char* mtimeFIRST = dateFormater( list -> myFile -> myStat.st_mtime);
+	char * st_modeFIRST = malloc(11);
+	st_modeFIRST = fonction_permission(list -> myFile -> myStat);
+	if(isPOpt)
+		printf("%s",list->myFile->myPrint);
+    printf("%s %ld %s %s %ld %s %s\n",
+               st_modeFIRST,
+               list -> myFile -> myStat.st_nlink,
+               getpwuid(list -> myFile -> myStat.st_uid)->pw_name,
+               getpwuid(list -> myFile -> myStat.st_gid)->pw_name,
+               list -> myFile -> myStat.st_size,
+               mtimeFIRST,
+               completePathBuilder(list));
+
+
+	while(nextFile(&list))
+	{
+		char* mtime = dateFormater( list -> myFile -> myStat.st_mtime);
+	    char * st_mode = fonction_permission(list -> myFile -> myStat);
+        if(isPOpt)
+			printf("%s",list->myFile->myPrint);
+        printf("%s %ld %s %s %ld %s %s\n",
+               st_mode,
+               list -> myFile -> myStat.st_nlink,
+               getpwuid(list -> myFile -> myStat.st_uid)->pw_name,
+               getpwuid(list -> myFile -> myStat.st_gid)->pw_name,
+               list -> myFile -> myStat.st_size,
+               mtime,
+               completePathBuilder(list));
+        
+       
+    }
 }

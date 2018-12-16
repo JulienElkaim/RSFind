@@ -9,136 +9,111 @@
 #include <string.h>
 #include <dirent.h>
 #include <time.h>
-
+#include <locale.h>
 
 
 int main(int argc, char** argv){
 	
+	//==========Local Settlement==========
+	
+	setlocale(LC_ALL,"");
+
+
+
+	//==========Options Checking==========
+
 	int returnOferrInArg = errInArg(argc, argv);
-	if (returnOferrInArg!=0){
-		if (returnOferrInArg==1){
-			return returnOferrInArg;
-		}else if (returnOferrInArg ==2){
-			return returnOferrInArg;
-		}
-	}
+	if (returnOferrInArg!=0)
+		if (returnOferrInArg==1)
+			return 1;
+		else if (returnOferrInArg ==2)
+			return 1;
 	
+
+
+	//==========Path Definition==========
 	
-	// Choix du path
 	char* myPath;
-	if (argc>1){
-		if (argv[1][0]=='-'){
-			//No Path defined, default path
+	if (argc>1)
+		if (argv[1][0]=='-')
 			myPath = ".";
-		}else
-			//Path defined
+		else
 			myPath = argv[1];	
-	}else{
-		//ZERO Args/Opts given
+	else
 		myPath = ".";
-		
-	}
-
-	int lOpt =0;
-	int tOpt =0;
-	char* tArg = malloc(1);
-	int iOpt =0;
-	int nOpt =0;
-	char* nArg = malloc(1);
-	int eOpt =0;
-	char* eArg = malloc(1);
-	int pOpt =0;
-
-	if(optDispatcher(argc, argv, &lOpt, &tOpt, &tArg, &iOpt, &nOpt, &nArg, &eOpt, &eArg, &pOpt)){
-		//Un mauvais argument, s'ârrête subitement
-		return 1;
-	}
-	
-	/*
-	printf("lOpt is %d \n",lOpt);
-	printf("tOpt is %d and argument is %s\n",tOpt, tArg);
-	printf("iOpt is %d \n",iOpt);
-	printf("nOpt is %d and argument is %s\n",nOpt, nArg);
-	printf("eOpt is %d and argument is %s\n",eOpt, eArg);
-	printf("pOpt is %d \n",pOpt);
-	*/
-
-	//Verif validity path
 
 	DIR* initDir;
 	initDir = opendir(myPath);
 	if(initDir==NULL)
-		return 1; // NOT a valid directory
+		return 1; // NOT a valid path.
 
-	//EXECUTER la recherche recursive avec dirent
+		
+	//==========Options Dispatching==========
+
+	int nOpt = 0, iOpt = 0, tOpt = 0;
+	int lOpt = 0, eOpt = 0, pOpt = 0;
+	char* nArg = malloc(1);
+	char* tArg = malloc(1);
+	char* eArg = malloc(1);
+
+	if(optDispatcher(argc, argv, &lOpt, &tOpt, &tArg, &iOpt, &nOpt, &nArg, &eOpt, &eArg, &pOpt)){
+		return 1; // Wrong entry.
+	}
 	
 
+
+	//==========Recursive Research==========
 	listOfFiles* myList = malloc(sizeof(listOfFiles));
-	myList -> myFile = create_File(myPath, "",NULL,NULL,NULL,NULL,NULL,NULL);
+	myList -> myFile = create_File(myPath, "");
 	myList -> next = NULL;
-
 	if(finderRecursive(myList))
-		//Not good, impossible to open it
-		return 1;
+		return 1; //Impossible to open.
+
+
 	
-	//==========RESTRICTIONS==========
-	if (nOpt){
-		myList = applyNOption(myList, nArg);
-		//Apply the --name restriction with nArg
-		//JULIEN
-	}
+	//==========Apply Restrictions==========
 
-	if (iOpt){
-		myList = applyIOption(myList);
-		//Apply the -i restriction
-		//JULIEN
-	}
+	if (nOpt){myList = applyNOption(myList, nArg);}
+	
+	if (iOpt){myList = applyIOption(myList);}
 
-	if (tOpt){
-		//Apply the -i restriction
-		//BENJAMIN
-	}
+	if (tOpt){/*Apply the -i restriction : BENJAMIN*/}
 
-	//==========MORE DATA==========
-	if (lOpt){
-		//Apply the -l format
-		//BENJAMIN
-	}
-	//==========LAUNCH THE RESULT IN EXEC==========
-	if (eOpt){
-		//Apply the -exec with a pipe
-		//JULIEN
 
-	}
+
+	//==========Datas Complements==========
+	
+	if (lOpt){ myList = applyLOption(myList); }
+	
+
+
+	//==========Execution on Result==========
+	
+	if (eOpt){/*Apply the -exec with a pipe : JULIEN*/}
+	
+
+
 	//==========PRINT IT OR NOT==========
-	if (pOpt){
-		if(lOpt){
-			//PRINT with the -l relative datas
-			//BENJAMIN
-		}
-		else{
-			printListOfFiles(myList);
-			//JULIEN
-		}
-	}
-	/*
-	listOfFiles* testList = malloc(sizeof(listOfFiles));
-	testList = myList;
-	printf("\n\n");
-	printf("Complete Path first Elt: %s\n", completePathBuilder( testList));
-	nextFile(&testList);
-	printf("Complete Path second Elt: %s\n", completePathBuilder( testList));
-	printf("\n\n");
-	printf("CompletePath third elt BEFORE: %s\n", completePathBuilder(testList -> next));
-	printf("CompletePath fourth elt BEFORE: %s\n", completePathBuilder(testList-> next -> next));
-	supprNextFileOf(&testList);
-	printf("\n\n");
-	printf("CompletePath third elt AFTER: %s\n", completePathBuilder(testList -> next));
-	printf("CompletePath fourth elt AFTER: %s\n", completePathBuilder(testList-> next -> next));
 
-	*/
+	if (pOpt)
+		if(lOpt)
+			applyLOptionPrint(myList, 1);
+		else
+			printListOfFiles(myList);
+	else
+		if(lOpt)
+			applyLOptionPrint(myList, 0);
+		else
+			printListOfFiles(myList);
+
+
+
+
 	return 0;
 }
+
+
+
 
 
 

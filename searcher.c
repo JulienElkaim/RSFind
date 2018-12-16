@@ -8,73 +8,53 @@
 #include <dirent.h>
 #include "myFunctionalLib.h"
 
-void whosLAST(listOfFiles* myList){
-	listOfFiles* nextList;
-	nextList = malloc(sizeof(listOfFiles));
-				
-	myListOfFilesPtrCpy(&nextList, myList);
-			
-	while(nextList -> next != NULL)
-		myListOfFilesPtrCpy(&nextList, nextList -> next); // Devenir le dernier de la liste
-		
-	printf("Voci le dernier: %s", nextList -> myFile -> myPrint);
-}	
-
 
 int finderRecursive(listOfFiles* list){	
+
+	//========== SET the complete Path =========== 
 
 	char* completePATH = malloc(sizeof(char)*(strlen(list-> myFile -> myName) + strlen(list ->  myFile -> myPath) + 2) );
 	strcpy(completePATH,list -> myFile -> myPath);
 	slashItCorrectly(&completePATH);
 	myStrCat(&completePATH, list-> myFile -> myName);
 
+	//========== TEST the disponibility of this Directory =========== 
 	DIR* currDir;
 	currDir = opendir(completePATH);
 	if(currDir==NULL)
-		return 1;  //directory not allowed to visit it
+		return 1;  //Not allowed to visit it.
 
+
+	//========== SKIM the Folder =========== 
 	struct dirent* dir;
-
-
 	listOfFiles* nextList;
+
 	while((dir =readdir(currDir))!=NULL){
 		
 		if(dir -> d_type == DT_DIR){
-			//cest un folder
+			//--- THIS IS A FOLDER ---
+
 			if (strcmp(dir -> d_name,"..")==0 ||strcmp(dir -> d_name,".")==0){
 				//Nothing Happen...
-			}else{
-				//We proceed
-								
+			}else{		
 				
-				insertFile( create_File(dir -> d_name, completePATH,NULL,NULL,NULL,NULL,NULL,NULL),
-				 list);
-				
+				insertFile( create_File(dir -> d_name, completePATH), list);
 				nextList = malloc(sizeof(listOfFiles));
-				
 				myListOfFilesPtrCpy(&nextList, list);
 				while(nextList -> next != NULL)
-					myListOfFilesPtrCpy(&nextList, nextList -> next); // Devenir le dernier de la liste
+					myListOfFilesPtrCpy(&nextList, nextList -> next);
 				
+				if(finderRecursive(nextList))
+					return 1; //A Folder was not available.
 				
-				if(finderRecursive(nextList)){
-					// returned a POSITIVE, Something wrong happened !
-					return 1;
-				}
 			}
 			
-			//Si Oui add avec create_File & applique finderRecursive
+		
 
 		}else{
-			//cest un simple fichier
-			insertFile( create_File(dir -> d_name, completePATH,NULL,NULL,NULL,NULL,NULL,NULL),
-			 list);
-
-
-	
+			//--- THIS IS A FILE ---
+			insertFile( create_File(dir -> d_name, completePATH), list);
 		}
-
-
 	}
 
 	closedir(currDir);

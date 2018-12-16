@@ -2,10 +2,12 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include "myFunctionalLib.h"
-// Structural FUNCTIONS
+#include <time.h>
+#include <locale.h>
 
+//========== Structural Functions ========== 
 
-MyFile* create_File(char* name, char* path, mode_t* perms, nlink_t* links, uid_t* usrID, gid_t* grpID, off_t* sizeFile, time_t* lastMod){
+MyFile* create_File(char* name, char* path){
 
 	MyFile* myFileCreated = malloc(sizeof(MyFile));
 
@@ -20,23 +22,9 @@ MyFile* create_File(char* name, char* path, mode_t* perms, nlink_t* links, uid_t
 	myStrCat(&(myFileCreated->myPrint), name);
 	myStrCat(&(myFileCreated->myPrint), "\n");
 
-
-	myFileCreated -> myPerms = malloc(sizeof(mode_t));
-	myFileCreated -> myPerms = perms;
-	myFileCreated -> myLinks = malloc(sizeof(nlink_t));
-	myFileCreated -> myLinks = links;
-	myFileCreated -> myUsrId = malloc(sizeof(uid_t));
-	myFileCreated -> myUsrId = usrID;
-	myFileCreated -> myGrpId = malloc(sizeof(gid_t));
-	myFileCreated -> myGrpId = grpID;
-	myFileCreated -> mySizeFile = malloc(sizeof(off_t));
-	myFileCreated -> mySizeFile = sizeFile;
-	myFileCreated -> myLastMod = malloc(sizeof(time_t));
-	myFileCreated -> myLastMod = lastMod;
-
-
 	return myFileCreated;
 }
+
 
 
 listOfFiles* insertFile(MyFile* newFile, listOfFiles* list){
@@ -54,6 +42,7 @@ listOfFiles* insertFile(MyFile* newFile, listOfFiles* list){
 }
 
 
+
 void printListOfFiles(listOfFiles* list){
 	while(list != NULL){
 		printf("%s", list -> myFile -> myPrint);
@@ -61,9 +50,11 @@ void printListOfFiles(listOfFiles* list){
 	}
 }
 
+
 void myListOfFilesPtrCpy(listOfFiles** dest, listOfFiles* ptrToCpy){
 	*dest = ptrToCpy;
 }
+
 
 int nextFile(listOfFiles** list){
 	listOfFiles* temp = malloc(sizeof(listOfFiles));
@@ -77,11 +68,11 @@ int nextFile(listOfFiles** list){
 	}
 }
 
+
 int supprNextFileOf(listOfFiles** list){
 	listOfFiles* temp = malloc(sizeof(listOfFiles));
 	temp = *list;
 	if (temp->next == NULL){
-		//Next existe pas, rien à supprimer
 		return 0;
 	}else{
 		//Next existe si le code ci dessous s'exécute
@@ -91,7 +82,44 @@ int supprNextFileOf(listOfFiles** list){
 }
 
 
-// USUAL FUNCTIONS
+
+//========== Operational Functions ========== 
+
+char* fonction_permission(struct stat s)
+{	
+    char* string = malloc(11);
+    
+    strcpy(string,(S_ISDIR(s.st_mode))  ? "d" : "-");
+    strcat(string,(s.st_mode & S_IRUSR) ? "r" : "-");
+    strcat(string,(s.st_mode & S_IWUSR) ? "w" : "-");
+    strcat(string,(s.st_mode & S_IXUSR) ? "x" : "-");
+    strcat(string,(s.st_mode & S_IRGRP) ? "r" : "-");
+    strcat(string,(s.st_mode & S_IWGRP) ? "w" : "-");
+    strcat(string,(s.st_mode & S_IXGRP) ? "x" : "-");
+    strcat(string,(s.st_mode & S_IROTH) ? "r" : "-");
+    strcat(string,(s.st_mode & S_IWOTH) ? "w" : "-");
+    strcat(string,(s.st_mode & S_IXOTH) ? "x" : "-");
+
+    return string;
+}
+
+
+char* dateFormater(time_t st_mdate)
+{
+	char* localeT = setlocale(LC_TIME,NULL);
+	char *result;
+	if(strcmp(localeT,"fr_FR.UTF-8")==0){
+    	result = malloc(20);
+    	strftime(result, 20, "%b  %d %H:%M", localtime(&st_mdate));
+    }else{
+    	result = malloc(20);
+    	strftime(result, 20, "%b %d %H:%M", localtime(&st_mdate));
+    }
+    return result;
+}
+
+
+
 
 char* completePathBuilder(listOfFiles* list){
 	
@@ -125,6 +153,9 @@ int myStrLen(char* strToSize){
 		taille++;
 	return taille;
 }
+
+
+
 void slashItCorrectly(char** str){
 	
 	char c;

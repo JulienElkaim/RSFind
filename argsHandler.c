@@ -7,51 +7,45 @@
 #include "argsHandler.h"
 #include <string.h>
 
+
 int errInArg(int argc, char** argv){
-	//Si la liste des arguments est mal entrée, 
 
 	int iOption = 0;
 	int rsFindOptions;
 	int status;
 
-	if(fork()==0){//fils
+	if(fork()==0){ // FORK ! SON
 		while((rsFindOptions = getopt_long(argc, argv, "lt:in:e:p", myLongOptions, &iOption)) != -1){
 			if (optarg!=NULL){
 				if(optarg[0]=='-'){
-					exit(1);
-				} // Une erreur se produit
+					exit(1); // Une erreur se produit
+				} 
 			}else{
 				if (rsFindOptions=='?')
 					exit(2); //Missing an argument here
 			}
-		}exit(0);
-	}else{//pere
+		}
+		exit(0);
+
+	}else{ // FORK ! FATHER
 		wait(&status);
 		if(WIFEXITED(status)){
 			if(WEXITSTATUS(status)==0){
-				//tout etait normal
-				return 0;
+				return 0; // Good.
 			}else{
-				return 1;
+				return 1; // Not Good.
 			}
 		}
 	}
 	
 }
 
+
+
 int optDispatcher(int argc, char** argv, int* lOpt, int* tOpt, char** tArg, int* iOpt, int* nOpt, char** nArg, int* eOpt, char** eArg, int* pOpt){
 
-	int iOption =0; //Useful to find the long_option characteristic
+	int iOption =0;
 	int rsFindOptions;
-
-	if (argc==1){
-		*pOpt = 1;
-	}else{
-		if (argc==2 && argv[1][0]!='-'){
-			
-			*pOpt=1;
-		}
-	}
 
 	while((rsFindOptions = getopt_long(argc, argv, "lt:in:e:p", myLongOptions, &iOption)) != -1){
 		

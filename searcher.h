@@ -4,4 +4,5 @@
 #include "myFunctionalLib.h"
 
 int finderRecursive(listOfFiles* list);
+
 #endif
