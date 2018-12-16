@@ -6,10 +6,11 @@
 #include "optionsToApply.h"
 #include <string.h>
 #include <dirent.h>
-//#include <debian/magic.h> // Find le good h pour mime type
+#include <magic.h> // Find le good h pour mime type
 #include "myFunctionalLib.h"
+//#define MIME_DB "/usr/share/file/magic.mgc"
 
-/*listOfFiles* applyIOption(listOfFiles* list){
+listOfFiles* applyIOption(listOfFiles* list){
 		listOfFiles* tempList = malloc(sizeof(listOfFiles));
 	tempList = list; // Garder un pointeur sur le premier
 	char* mime;
@@ -17,8 +18,7 @@
 	while(list -> next != NULL){
 		magic = magic_open(MAGIC_MIME_TYPE);
 		magic_load(magic,NULL);
-		magic_compile(magic,NULL);
-		mime = magic_file(magic,list -> next -> myFile -> myName);
+		mime = (char*)magic_file(magic,completePathBuilder(list -> next) );
 		if(strstr(mime,"image/")==NULL){
 			//N'est pas une image
 			supprNextFileOf(&list);
@@ -34,7 +34,7 @@
 	magic = magic_open(MAGIC_MIME_TYPE);
 	magic_load(magic,NULL);
 	magic_compile(magic,NULL);
-	mime = magic_file(magic,tempList -> myFile -> myName);
+	mime = (char*)magic_file(magic,tempList -> myFile -> myName);
 	
 	if(strstr(mime,"image/")==NULL){
 		//N'est pas une image
@@ -44,7 +44,6 @@
 	return tempList;
 }
 
-*/
 
 
 listOfFiles* applyNOption(listOfFiles* list, char* str){

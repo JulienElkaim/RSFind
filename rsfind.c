@@ -89,7 +89,7 @@ int main(int argc, char** argv){
 	}
 
 	if (iOpt){
-		//myList = applyIOption(myList);
+		myList = applyIOption(myList);
 		//Apply the -i restriction
 		//JULIEN
 	}
