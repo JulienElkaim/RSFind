@@ -47,7 +47,7 @@ int finderRecursive(listOfFiles* list){
 				//We proceed
 								
 				
-				insertFile( create_File(dir -> d_name, completePATH,NULL,NULL,NULL,NULL,NULL,NULL),
+				insertFile( create_File(dir -> d_name, completePATH),
 				 list);
 				
 				nextList = malloc(sizeof(listOfFiles));
@@ -67,7 +67,7 @@ int finderRecursive(listOfFiles* list){
 
 		}else{
 			//cest un simple fichier
-			insertFile( create_File(dir -> d_name, completePATH,NULL,NULL,NULL,NULL,NULL,NULL),
+			insertFile( create_File(dir -> d_name, completePATH),
 			 list);
 
 

@@ -10,7 +10,8 @@
 #include <dirent.h>
 #include <time.h>
 
-
+char* fonction_permission(struct stat s);
+char* date(time_t st_mdate);
 
 int main(int argc, char** argv){
 	
@@ -74,7 +75,7 @@ int main(int argc, char** argv){
 	
 
 	listOfFiles* myList = malloc(sizeof(listOfFiles));
-	myList -> myFile = create_File(myPath, "",NULL,NULL,NULL,NULL,NULL,NULL);
+	myList -> myFile = create_File(myPath, "");
 	myList -> next = NULL;
 
 	if(finderRecursive(myList))
@@ -100,10 +101,22 @@ int main(int argc, char** argv){
 	}
 
 	//==========MORE DATA==========
+	listOfFiles* listTampon = malloc(sizeof(listOfFiles));
+	myListOfFilesPtrCpy(&listTampon, myList);
+	
 	if (lOpt){
 		//Apply the -l format
 		//BENJAMIN
-	}
+		
+		while(nextFile(&myList)) //
+		{
+		    struct stat current_file;
+		    if(!stat(completePathBuilder(myList), &current_file))		    
+		    {	
+    	        myList -> myFile -> myStat = current_file;
+		     }
+		}
+    }
 	//==========LAUNCH THE RESULT IN EXEC==========
 	if (eOpt){
 		//Apply the -exec with a pipe
@@ -115,6 +128,22 @@ int main(int argc, char** argv){
 		if(lOpt){
 			//PRINT with the -l relative datas
 			//BENJAMIN
+			
+		    myListOfFilesPtrCpy(&myList, listTampon);
+			while(nextFile(&myList))
+			{
+			    char* mtime = date( myList -> myFile -> myStat.st_mtime);
+                
+			    char * st_mode = fonction_permission(myList -> myFile -> myStat);
+		        printf("%s %ld %s %s %ld %s %s\n",
+                       st_mode,
+                       myList -> myFile -> myStat.st_nlink,
+                       getpwuid(myList -> myFile -> myStat.st_uid)->pw_name,
+                       getpwuid(myList -> myFile -> myStat.st_gid)->pw_name,
+                       myList -> myFile -> myStat.st_size,
+                       mtime,
+                       completePathBuilder(myList));
+            }
 		}
 		else{
 			printListOfFiles(myList);
@@ -140,5 +169,29 @@ int main(int argc, char** argv){
 	return 0;
 }
 
+char* fonction_permission(struct stat s)
+{
+    char* string = malloc(11);
+    
+    strcpy(string,(S_ISDIR(s.st_mode))  ? "d" : "-");
+    strcat(string,(s.st_mode & S_IRUSR) ? "r" : "-");
+    strcat(string,(s.st_mode & S_IWUSR) ? "w" : "-");
+    strcat(string,(s.st_mode & S_IXUSR) ? "x" : "-");
+    strcat(string,(s.st_mode & S_IRGRP) ? "r" : "-");
+    strcat(string,(s.st_mode & S_IWGRP) ? "w" : "-");
+    strcat(string,(s.st_mode & S_IXGRP) ? "x" : "-");
+    strcat(string,(s.st_mode & S_IROTH) ? "r" : "-");
+    strcat(string,(s.st_mode & S_IWOTH) ? "w" : "-");
+    strcat(string,(s.st_mode & S_IXOTH) ? "x" : "-");
+
+    return string;
+}
+
+char* date(time_t st_mdate)
+{
+    char *result;
+    strftime(result, 30, "%b %H:%M:%S", localtime(&st_mdate));
+    return result;
+}
 
 

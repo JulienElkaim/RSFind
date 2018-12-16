@@ -5,7 +5,7 @@
 // Structural FUNCTIONS
 
 
-MyFile* create_File(char* name, char* path, mode_t* perms, nlink_t* links, uid_t* usrID, gid_t* grpID, off_t* sizeFile, time_t* lastMod){
+MyFile* create_File(char* name, char* path){
 
 	MyFile* myFileCreated = malloc(sizeof(MyFile));
 
@@ -19,21 +19,6 @@ MyFile* create_File(char* name, char* path, mode_t* perms, nlink_t* links, uid_t
 	slashItCorrectly(&(myFileCreated->myPrint));
 	myStrCat(&(myFileCreated->myPrint), name);
 	myStrCat(&(myFileCreated->myPrint), "\n");
-
-
-	myFileCreated -> myPerms = malloc(sizeof(mode_t));
-	myFileCreated -> myPerms = perms;
-	myFileCreated -> myLinks = malloc(sizeof(nlink_t));
-	myFileCreated -> myLinks = links;
-	myFileCreated -> myUsrId = malloc(sizeof(uid_t));
-	myFileCreated -> myUsrId = usrID;
-	myFileCreated -> myGrpId = malloc(sizeof(gid_t));
-	myFileCreated -> myGrpId = grpID;
-	myFileCreated -> mySizeFile = malloc(sizeof(off_t));
-	myFileCreated -> mySizeFile = sizeFile;
-	myFileCreated -> myLastMod = malloc(sizeof(time_t));
-	myFileCreated -> myLastMod = lastMod;
-
 
 	return myFileCreated;
 }
