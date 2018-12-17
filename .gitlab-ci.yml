@@ -20,6 +20,7 @@ test-all:
       - build-all
    script:
       - apt-get update && apt install -y libmagic-dev file
+      - make
       - locale
       - bash test.sh
       
