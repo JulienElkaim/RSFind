@@ -107,6 +107,8 @@ char* fonction_permission(struct stat s)
 
 	if(strcmp(localeT,"POSIX")==0){
 		strcat(string,".");
+	}else{
+		printf("WHAT ! locale is %s\n", localeT);
 	}
     return string;
 }
