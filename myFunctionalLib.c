@@ -106,7 +106,7 @@ char* fonction_permission(struct stat s)
     strcat(string,(s.st_mode & S_IXOTH) ? "x" : "-");
 
 	if(strcmp(localeT,"C")==0){
-		strcat(string,".");
+		//strcat(string,".");
 	}
     return string;
 }
