@@ -1,0 +1,25 @@
+
+stages :
+   - build
+   - test
+
+image: debian:stretch
+
+build-all:
+   stage: build
+   script:
+      - apt-get update && apt install -y build-essential
+      - apt-get install libmagic-dev
+      - make
+   artifacts:
+      paths:
+         - rsfind
+      
+test-all:
+   stage: test
+   dependencies:
+      - build-all
+   script:
+      - bash test.sh
+      
+      
