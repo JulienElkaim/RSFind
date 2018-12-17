@@ -8,7 +8,7 @@ image: debian:stretch
 build-all:
    stage: build
    script:
-      - apt-get update && apt install -y build-essential libmagic-dev
+      - apt-get update && apt install -y build-essential libmagic
       - make
    artifacts:
       paths:
