@@ -19,6 +19,6 @@ test-all:
    dependencies:
       - build-all
    script:
-      - bash ./test.sh
+      - bash test.sh
       
       

@@ -40,7 +40,7 @@ testArray=(
     "./rsfind DOSSIER -l" 
     #"./rsfind DOSSIER --exec CMD"
     "./rsfind DOSSIER --name fir.png -i"
-    #"./rsfind DOSSIER --print --exec COMMANDE"
+    #"./rsfind DOSSIER --print --exec COMMANDE" 
     #"./rsfind DOSSIER --ename REGEXP"
     #"./rsfind DOSSIER -T REGEXP = grep -r -l DOSSIER -e REGEXP"
     "./rsfind DOSSIER -p 4"
@@ -55,17 +55,17 @@ for ((i = 0; i < ${#truthArray[@]}; i++))
 do
     echo "Test : ${testArray[$i]}"
 
-    BEFORETRUTH=$($DATE +'%N')
+    #BEFORETRUTH=$($DATE +'%N')
     eval ${truthArray[$i]} > tmp/truthTest.txt
-    AFTERTRUTH=$($DATE +'%N')
-    CMPTTRUTH=$(($AFTERTRUTH - $BEFORETRUTH))
-    echo Truth exec is: $CMPTTRUTH
+    #AFTERTRUTH=$($DATE +'%N')
+    #CMPTTRUTH=$(($AFTERTRUTH - $BEFORETRUTH))
+    #echo Truth exec is: $CMPTTRUTH
     
-    BEFORETEST=$($DATE +'%N')
+    #BEFORETEST=$($DATE +'%N')
     eval ${testArray[$i]} > tmp/resTest.txt
-    AFTERTEST=$($DATE +'%N')
-    CMPTTEST=$(($AFTERTEST - $BEFORETRUTH))
-    echo Test exec is: $CMPTTEST
+    #AFTERTEST=$($DATE +'%N')
+    #CMPTTEST=$(($AFTERTEST - $BEFORETRUTH))
+    #echo Test exec is: $CMPTTEST
 
     diff tmp/truthTest.txt  tmp/resTest.txt
     e_code=$?
