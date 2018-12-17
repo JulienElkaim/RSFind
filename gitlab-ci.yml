@@ -9,7 +9,7 @@ build-all:
    stage: build
    script:
       - apt-get update && apt install -y build-essential
-      - apt-get install libmagic-dev
+      - apt-get update && apt install libmagic-dev
       - make
    artifacts:
       paths:
