@@ -8,9 +8,8 @@ image: debian:stretch
 build-all:
    stage: build
    script:
-      - apt-get update && apt install -y build-essential libmagic-dev
-      - apt install -y file
-      -make
+      - apt-get update && apt install -y build-essential libmagic-dev file
+      - make
    artifacts:
       paths:
          - rsfind
@@ -20,8 +19,7 @@ test-all:
    dependencies:
       - build-all
    script:
-      - apt-get update && apt install -y libmagic-dev
-      - apt install -y file
+      - apt-get update && apt install -y libmagic-dev file
       - locale
       - bash test.sh
       
