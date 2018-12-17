@@ -9,7 +9,8 @@ build-all:
    stage: build
    script:
       - apt-get update && apt install -y build-essential libmagic-dev
-      - make
+      - apt install -y file
+      -make
    artifacts:
       paths:
          - rsfind
@@ -20,6 +21,7 @@ test-all:
       - build-all
    script:
       - apt-get update && apt install -y libmagic-dev
+      - apt install -y file
       - locale
       - bash test.sh
       
