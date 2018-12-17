@@ -14,6 +14,7 @@ struct _MyFile{
 	char* myName;
 	char* myPath;
     struct stat myStat;
+    int isItAFile;
     
 }; typedef struct _MyFile MyFile;
 
@@ -24,7 +25,7 @@ struct _myDirAndFileList{
 
 
 
-MyFile* create_File(char* name, char* path);
+MyFile* create_File(char* name, char* path, int myIsItAFile);
 listOfFiles* insertFile(MyFile* newFile, listOfFiles* list);
 void printListOfFiles (listOfFiles* list);
 void myListOfFilesPtrCpy(listOfFiles** dest, listOfFiles* ptrToCpy);

@@ -7,7 +7,7 @@
 
 //========== Structural Functions ========== 
 
-MyFile* create_File(char* name, char* path){
+MyFile* create_File(char* name, char* path, int myIsItAFile){
 
 	MyFile* myFileCreated = malloc(sizeof(MyFile));
 
@@ -21,6 +21,10 @@ MyFile* create_File(char* name, char* path){
 	slashItCorrectly(&(myFileCreated->myPrint));
 	myStrCat(&(myFileCreated->myPrint), name);
 	myStrCat(&(myFileCreated->myPrint), "\n");
+
+	myFileCreated -> isItAFile = myIsItAFile;
+
+
 
 	return myFileCreated;
 }

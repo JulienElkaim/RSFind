@@ -64,7 +64,7 @@ int main(int argc, char** argv){
 
 	//==========Recursive Research==========
 	listOfFiles* myList = malloc(sizeof(listOfFiles));
-	myList -> myFile = create_File(myPath, "");
+	myList -> myFile = create_File(myPath, "", 0);
 	myList -> next = NULL;
 	if(finderRecursive(myList))
 		return 1; //Impossible to open.

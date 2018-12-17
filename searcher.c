@@ -38,7 +38,7 @@ int finderRecursive(listOfFiles* list){
 				//Nothing Happen...
 			}else{		
 				
-				insertFile( create_File(dir -> d_name, completePATH), list);
+				insertFile( create_File(dir -> d_name, completePATH, 0), list);
 				nextList = malloc(sizeof(listOfFiles));
 				myListOfFilesPtrCpy(&nextList, list);
 				while(nextList -> next != NULL)
@@ -53,7 +53,7 @@ int finderRecursive(listOfFiles* list){
 
 		}else{
 			//--- THIS IS A FILE ---
-			insertFile( create_File(dir -> d_name, completePATH), list);
+			insertFile( create_File(dir -> d_name, completePATH, 1), list);
 		}
 	}
 
