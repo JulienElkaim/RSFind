@@ -19,7 +19,7 @@ test-all:
    dependencies:
       - build-all
    script:
-      - apt-get update && apt install -y libmagic-dev file
+      - apt-get update && apt install -y build-essential libmagic-dev file
       - make
       - locale
       - bash test.sh
