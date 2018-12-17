@@ -3,7 +3,7 @@ stages :
    - build
    - test
 
-image: debian:stretch:9
+image: debian:9
 
 build-all:
    stage: build
