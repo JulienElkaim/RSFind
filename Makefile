@@ -5,7 +5,7 @@ LDFLAGS=
 EXEC=rsfind
 
 
-rsfind: setLang rsfind.o myFunctionalLib.o optionsToApply.o searcher.o argsHandler.o
+rsfind: rsfind.o myFunctionalLib.o optionsToApply.o searcher.o argsHandler.o
 	$(CC) -o rsfind rsfind.o myFunctionalLib.o optionsToApply.o searcher.o argsHandler.o $(COPTIONS)
 
 rsfind.o: rsfind.c
@@ -31,6 +31,3 @@ clean:
 
 mrproper: clean
 	rm -rf $(EXEC)
-
-setLang:
-	export LANG=fr_FR.UTF-8
