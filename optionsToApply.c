@@ -112,28 +112,23 @@ listOfFiles* applyLOption(listOfFiles* list){
 
 void applyLOptionPrint(listOfFiles* list,int isPOpt){
 
-    char* mtimeFIRST = dateFormater( list -> myFile -> myStat.st_mtime);
-	char * st_modeFIRST = malloc(11);
-	st_modeFIRST = fonction_permission(list -> myFile -> myStat);
 	if(isPOpt)
 		printf("%s",list->myFile->myPrint);
-    printf("%s %ld %s %s %ld %s %s\n",
-               st_modeFIRST,
-               list -> myFile -> myStat.st_nlink,
-               getpwuid(list -> myFile -> myStat.st_uid)->pw_name,
-               getpwuid(list -> myFile -> myStat.st_gid)->pw_name,
-               list -> myFile -> myStat.st_size,
-               mtimeFIRST,
-               completePathBuilder(list));
-
+	printerOfLOption(list);
 
 	while(nextFile(&list))
 	{
-		char* mtime = dateFormater( list -> myFile -> myStat.st_mtime);
-	    char * st_mode = fonction_permission(list -> myFile -> myStat);
-        if(isPOpt)
+		if(isPOpt)
 			printf("%s",list->myFile->myPrint);
-        printf("%s %ld %s %s %ld %s %s\n",
+        printerOfLOption(list);
+    }
+}
+
+void printerOfLOption(listOfFiles* list){
+	char* mtime = dateFormater( list -> myFile -> myStat.st_mtime);
+	char * st_mode = fonction_permission(list -> myFile -> myStat);
+        
+	printf("%s %ld %s %s %ld %s %s\n",
                st_mode,
                list -> myFile -> myStat.st_nlink,
                getpwuid(list -> myFile -> myStat.st_uid)->pw_name,
@@ -141,7 +136,22 @@ void applyLOptionPrint(listOfFiles* list,int isPOpt){
                list -> myFile -> myStat.st_size,
                mtime,
                completePathBuilder(list));
-        
-       
-    }
+}
+
+
+void printerGeneral(listOfFiles* list, int pOpt, int lOpt, int eOpt){
+	while(list != NULL){
+		if(pOpt || !(pOpt+lOpt+eOpt) ){
+			printf("%s", list -> myFile -> myPrint);
+		}
+		
+		if(lOpt){
+			printerOfLOption(list);
+		}
+		if(eOpt){
+			printf("%s", list -> myFile -> myEPrint);
+			
+		}
+		list = list -> next;
+	}
 }

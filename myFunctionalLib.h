@@ -15,6 +15,7 @@ struct _MyFile{
 	char* myPath;
     struct stat myStat;
     int isItAFile;
+	char* myEPrint;
     
 }; typedef struct _MyFile MyFile;
 
@@ -31,6 +32,7 @@ void printListOfFiles (listOfFiles* list);
 void myListOfFilesPtrCpy(listOfFiles** dest, listOfFiles* ptrToCpy);
 int nextFile(listOfFiles** list);
 int supprNextFileOf(listOfFiles** list);
+
 
 
 

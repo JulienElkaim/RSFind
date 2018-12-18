@@ -45,8 +45,6 @@ listOfFiles* insertFile(MyFile* newFile, listOfFiles* list){
 	return list;
 }
 
-
-
 void printListOfFiles(listOfFiles* list){
 	while(list != NULL){
 		printf("%s", list -> myFile -> myPrint);
@@ -105,9 +103,11 @@ char* fonction_permission(struct stat s)
     strcat(string,(s.st_mode & S_IWOTH) ? "w" : "-");
     strcat(string,(s.st_mode & S_IXOTH) ? "x" : "-");
 
-	if(strcmp(localeT,"C")==0){
+	/*if(strcmp(localeT,"C")==0){
 		strcat(string,".");
-	}
+	}*/ 
+	//AS SEEN with Nicolas, no need to implement this format.
+
     return string;
 }
 

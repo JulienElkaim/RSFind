@@ -18,8 +18,6 @@ int main(int argc, char** argv){
 	
 	setlocale(LC_ALL,"");
 
-
-
 	//==========Options Checking==========
 
 	int returnOferrInArg = errInArg(argc, argv);
@@ -94,7 +92,7 @@ int main(int argc, char** argv){
 
 
 	//==========PRINT IT OR NOT==========
-
+	/*
 	if (pOpt)
 		if(lOpt)
 			applyLOptionPrint(myList, 1);
@@ -106,8 +104,10 @@ int main(int argc, char** argv){
 		else
 			printListOfFiles(myList);
 
+		*/
 
-
+	printerGeneral(myList,pOpt,lOpt,eOpt);
+	
 
 	return 0;
 }
