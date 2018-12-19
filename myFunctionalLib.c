@@ -89,7 +89,6 @@ int supprNextFileOf(listOfFiles** list){
 
 char* fonction_permission(struct stat s)
 {	
-	char* localeT = setlocale(LC_TIME,NULL);
     char* string = malloc(12);
     
     strcpy(string,(S_ISDIR(s.st_mode))  ? "d" : "-");
@@ -103,9 +102,12 @@ char* fonction_permission(struct stat s)
     strcat(string,(s.st_mode & S_IWOTH) ? "w" : "-");
     strcat(string,(s.st_mode & S_IXOTH) ? "x" : "-");
 
-	/*if(strcmp(localeT,"C")==0){
+	/*
+	char* localeT = setlocale(LC_TIME,NULL);
+	if(strcmp(localeT,"C")==0){
 		strcat(string,".");
-	}*/ 
+	}
+	*/ 
 	//AS SEEN with Nicolas, no need to implement this format.
 
     return string;

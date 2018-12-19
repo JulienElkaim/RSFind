@@ -21,12 +21,14 @@ int main(int argc, char** argv){
 	//==========Options Checking==========
 
 	int returnOferrInArg = errInArg(argc, argv);
-	if (returnOferrInArg!=0)
-		if (returnOferrInArg==1)
+	if (returnOferrInArg!=0){
+		if (returnOferrInArg==1){
 			return 1;
-		else if (returnOferrInArg ==2)
+		}
+		else if (returnOferrInArg ==2){
 			return 1;
-
+		}
+	}
 	//==========Path Definition==========
 	
 	char* myPath;

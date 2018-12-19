@@ -162,7 +162,6 @@ listOfFiles* applyNOption(listOfFiles* list, char* str){
 }
 
 
-
 listOfFiles* applyLOption(listOfFiles* list){
 
 	listOfFiles* tempList = malloc(sizeof(listOfFiles));

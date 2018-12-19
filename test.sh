@@ -21,7 +21,7 @@ truthArray=(
     "find DOSSIER -exec ls -l {} \;" #o
     "find DOSSIER -exec ls -l \;"
     "find DOSSIER -name fir.png -type f -exec file {} \; | grep image | cut -d : -f 1"
-    #"find DOSSIER -print -exec COMMANDE \;"
+    "find DOSSIER -print -exec ls -l {} \;"
     #"find DOSSIER -name REGEXP"
     #"grep -r -l DOSSIER -e REGEXP"
     "./rsfind DOSSIER"
@@ -42,7 +42,7 @@ testArray=(
     "./rsfind DOSSIER --exec \"ls -l {}\"" #
     "./rsfind DOSSIER --exec \"ls -l\""
     "./rsfind DOSSIER --name fir.png -i"
-    #"./rsfind DOSSIER --print --exec COMMANDE" 
+    "./rsfind DOSSIER --print --exec \"ls -l {}\"" #  
     #"./rsfind DOSSIER --ename REGEXP"
     #"./rsfind DOSSIER -T REGEXP = grep -r -l DOSSIER -e REGEXP"
     "./rsfind DOSSIER -p 4"
