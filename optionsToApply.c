@@ -49,7 +49,81 @@ listOfFiles* applyIOption(listOfFiles* list){
 
 }
 
+int rememberExecResult(char** myEPrint, char** cmd, char* thePath){
 
+	int pid, p[2], status;
+    pipe(p);
+
+    if( (pid = fork()) ){// POSITIVE, Dad
+        wait(&status);
+        if(WIFEXITED(status)){
+        	if(WEXITSTATUS(status)==0){
+    
+        		//---- RECEIVE THE MESSAGE ----
+        		close(p[1]);
+        		char BUFF;
+        		char* strToReceive="";
+        		
+        		while (read(p[0], &BUFF, 1) > 0){
+        			myStrCat(&strToReceive, &BUFF);
+      			}
+
+      			// ----- RECUPERER L'INFORMATION -----
+      			*myEPrint = malloc(sizeof(char)* strlen(strToReceive)+1);
+      			strcpy(*myEPrint, strToReceive);
+      			
+        		return 0;
+        	}else{
+
+        		return 1; // Not Good finishing
+        	}
+        }else{
+        
+        	return 1;
+        }
+
+
+    }else{ // NILL, Son
+    	dup2(p[1],1);
+    	close(p[0]);
+    	if(!changeMyBrackets(cmd,thePath)){
+    		//return 1;
+    	}
+    	
+    	//----- COMPUTE RESULT -----
+    	
+    	execvp(cmd[0],cmd);
+    
+	}
+
+
+	return 0;
+}
+
+
+
+
+listOfFiles* applyEOption(listOfFiles* list, char* eArg){
+	listOfFiles* tempList = malloc(sizeof(listOfFiles));
+	tempList = list;
+
+	//===== DIVIDE l'argument en un tableau de char* =====
+	char** tabOfString = splitMyString(eArg);
+
+	//===== APPLY Restriction on EVERYONE =====
+	while (list -> next != NULL){
+
+		//TAKE IN MEMORY THE EXEC RESULT
+		rememberExecResult( &(list -> next -> myFile -> myEPrint), tabOfString, completePathBuilder(list-> next) );
+		nextFile(&list);  
+		
+	}
+
+	//===== APPLY Restriction on FIRSTONE =====
+	rememberExecResult( &(tempList -> myFile -> myEPrint), tabOfString, completePathBuilder(tempList));
+
+	return tempList;
+}
 
 
 listOfFiles* applyNOption(listOfFiles* list, char* str){
@@ -144,7 +218,7 @@ void printerGeneral(listOfFiles* list, int pOpt, int lOpt, int eOpt){
 		if(pOpt || !(pOpt+lOpt+eOpt) ){
 			printf("%s", list -> myFile -> myPrint);
 		}
-		
+
 		if(lOpt){
 			printerOfLOption(list);
 		}

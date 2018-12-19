@@ -11,5 +11,6 @@ void printerOfLOption(listOfFiles* list);
 char* takeListReturnLPrint(listOfFiles* list);
 void printerGeneral(listOfFiles* list, int pOpt, int lOpt, int eOpt);
 
+listOfFiles* applyEOption(listOfFiles* list, char* eArg);
 
 #endif

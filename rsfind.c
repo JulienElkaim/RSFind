@@ -26,8 +26,6 @@ int main(int argc, char** argv){
 			return 1;
 		else if (returnOferrInArg ==2)
 			return 1;
-	
-
 
 	//==========Path Definition==========
 	
@@ -57,8 +55,6 @@ int main(int argc, char** argv){
 	if(optDispatcher(argc, argv, &lOpt, &tOpt, &tArg, &iOpt, &nOpt, &nArg, &eOpt, &eArg, &pOpt)){
 		return 1; // Wrong entry.
 	}
-	
-
 
 	//==========Recursive Research==========
 	listOfFiles* myList = malloc(sizeof(listOfFiles));
@@ -68,7 +64,6 @@ int main(int argc, char** argv){
 		return 1; //Impossible to open.
 
 
-	
 	//==========Apply Restrictions==========
 
 	if (nOpt){myList = applyNOption(myList, nArg);}
@@ -87,25 +82,13 @@ int main(int argc, char** argv){
 
 	//==========Execution on Result==========
 	
-	if (eOpt){/*Apply the -exec with a pipe : JULIEN*/}
+	if (eOpt){
+		myList = applyEOption(myList, eArg);/*Apply the -exec with a pipe : JULIEN*/
+	}
 	
 
 
-	//==========PRINT IT OR NOT==========
-	/*
-	if (pOpt)
-		if(lOpt)
-			applyLOptionPrint(myList, 1);
-		else
-			printListOfFiles(myList);
-	else
-		if(lOpt)
-			applyLOptionPrint(myList, 0);
-		else
-			printListOfFiles(myList);
-
-		*/
-
+	//==========PRINT IT ==========
 	printerGeneral(myList,pOpt,lOpt,eOpt);
 	
 

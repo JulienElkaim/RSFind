@@ -44,7 +44,8 @@ void myStrCat(char** dest, char* c);
 void slashItCorrectly(char** str);
 char* dateFormater(time_t st_mdate);
 char* fonction_permission(struct stat s);
-
-
+int countItems(char* myStr);
+char** splitMyString (char* givenStr);
+int changeMyBrackets(char** tabOfString, char* thePath);
 
 #endif

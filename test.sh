@@ -18,7 +18,8 @@ truthArray=(
     #"grep -r -l DOSSIER -e CHAINE"
     "find DOSSIER -type f -exec file {} \; | grep image | cut -d : -f 1"
     "find DOSSIER -exec ls -l -d {} \;"
-    #"find DOSSIER -exec COMMANDE \;"
+    "find DOSSIER -exec ls -l {} \;" #o
+    "find DOSSIER -exec ls -l \;"
     "find DOSSIER -name fir.png -type f -exec file {} \; | grep image | cut -d : -f 1"
     #"find DOSSIER -print -exec COMMANDE \;"
     #"find DOSSIER -name REGEXP"
@@ -38,7 +39,8 @@ testArray=(
     #"./rsfind DOSSIER -t CHAINE"
     "./rsfind DOSSIER -i" 
     "./rsfind DOSSIER -l" 
-    #"./rsfind DOSSIER --exec CMD"
+    "./rsfind DOSSIER --exec \"ls -l {}\"" #
+    "./rsfind DOSSIER --exec \"ls -l\""
     "./rsfind DOSSIER --name fir.png -i"
     #"./rsfind DOSSIER --print --exec COMMANDE" 
     #"./rsfind DOSSIER --ename REGEXP"

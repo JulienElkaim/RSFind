@@ -130,9 +130,7 @@ char* dateFormater(time_t st_mdate)
 
 
 char* completePathBuilder(listOfFiles* list){
-	
 	char* pathToBuild = malloc(sizeof(char) * (strlen(list -> myFile -> myPath) + 1 + strlen(list -> myFile -> myName) +1) );
-	
 	strcpy(pathToBuild, list -> myFile -> myPath);
 	slashItCorrectly(&pathToBuild);
 	myStrCat(&pathToBuild, list-> myFile -> myName);
@@ -169,7 +167,7 @@ void slashItCorrectly(char** str){
 	char c;
 	int boolean =0, i=0;
 	if(strlen(*str) > 0){
-		//Le path est pas vide, faut slasher si pas deja fait
+		//PATH Non vide, add slash if not yet slashed.
 		c = (*str)[i];
 		while(c != '\0'){
 			if (c=='/')
@@ -181,5 +179,54 @@ void slashItCorrectly(char** str){
 		}
 		if(boolean == 0){myStrCat(str,"/");}
 	}
+}
 
+int changeMyBrackets(char** tabOfString, char* thePath){
+	int i = 0;
+	int boolean= 0;
+	while(tabOfString[i]!=NULL){
+		
+		if(strcmp(tabOfString[i],"{}")==0){
+			boolean=1;
+			tabOfString[i]=thePath;
+		}
+		
+		i++;
+	}
+	return boolean;
+}
+
+char** splitMyString (char* givenStr) {
+  
+  char* myStr = malloc(sizeof(char)* (strlen(givenStr)+1) );
+  strcpy(myStr, givenStr);
+  
+  const char s[2] = " ";
+  char *TempoEltInMyStr;
+   
+   char** myStrSplitted =malloc(sizeof(char*)* (countItems(myStr) + 1) );
+   int i = 0;
+
+   TempoEltInMyStr = strtok(myStr, s);
+   while( TempoEltInMyStr != NULL ) {
+      myStrSplitted[i]= malloc(sizeof(char)* (strlen(TempoEltInMyStr)+1) );
+      strcpy(myStrSplitted[i], TempoEltInMyStr);
+      i++;
+      TempoEltInMyStr = strtok(NULL, s);
+   }
+   
+   myStrSplitted[i] = NULL;
+   
+   return myStrSplitted;
+}
+
+
+int countItems(char* myStr){
+	int i =0, cnt = 1;
+
+	while(myStr[i] != '\0'){
+		if (myStr[i]==' '){	cnt++;}
+		i++;
+	}
+	return cnt;
 }

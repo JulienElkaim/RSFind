@@ -71,7 +71,6 @@ int optDispatcher(int argc, char** argv, int* lOpt, int* tOpt, char** tArg, int*
 				break;
 			
 			case 'e':
-				printf("Je passe \n");
 				*eOpt = 1;
 				*eArg = malloc(sizeof(char)*(strlen(optarg)+1) );
 				memset(*eArg, 0,sizeof(char)*(strlen(optarg)+1) );
