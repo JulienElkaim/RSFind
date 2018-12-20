@@ -8,7 +8,7 @@
 #include <dirent.h>
 #include <magic.h>
 #include "myFunctionalLib.h"
-
+#include <fcntl.h>
 
 
 listOfFiles* applyIOption(listOfFiles* list){
@@ -227,4 +227,65 @@ void printerGeneral(listOfFiles* list, int pOpt, int lOpt, int eOpt){
 		}
 		list = list -> next;
 	}
+}
+
+listOfFiles* applyTOption(listOfFiles* list, char* tArg){
+
+	listOfFiles* tempList = malloc(sizeof(listOfFiles));
+	tempList = list;
+	
+
+
+	//========== APPLY Restriction on EVERY \{first} ========== 
+
+	while(list -> next != NULL)
+	{
+		if(list -> next -> myFile -> isItAFile)
+		{
+			char BUFF;
+			int fd;
+			char* readFile = "";
+
+			fd = open(completePathBuilder(list), O_RDONLY);
+		
+			while(read(fd, &BUFF, 1) > 0)
+			{
+				myStrCat(&readFile, &BUFF);
+			}
+			close(fd);
+			if(strstr(readFile, tArg))
+			{
+				supprNextFileOf(&list);
+			}else{
+				nextFile(&list);
+			}
+		}else
+		{
+			supprNextFileOf(&list);
+		}
+	}
+
+	//========== APPLY Restriction on first ========== 
+	
+	if(tempList->myFile->isItAFile)
+	{
+		char BUFF;
+		char* readFile = "";
+		int fd;
+
+		fd = open(completePathBuilder(tempList), O_RDONLY);
+		
+		while(read(fd, &BUFF, 1) > 0)
+		{
+			myStrCat(&readFile, &BUFF);
+		}
+		if(strstr(readFile, tArg))
+		{
+			tempList = tempList -> next; 
+		}		
+		close(fd);
+	}else{
+		tempList = tempList -> next;
+	}
+	return tempList;
 }

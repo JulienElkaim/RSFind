@@ -72,7 +72,7 @@ int main(int argc, char** argv){
 	
 	if (iOpt){myList = applyIOption(myList);}
 
-	if (tOpt){/*Apply the -i restriction : BENJAMIN*/}
+	if (tOpt){myList = applyTOption(myList, tArg);}
 
 
 
