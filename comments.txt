@@ -10,6 +10,3 @@ rsfind DOSSIER --name CHAINE -i = find DOSSIER -name CHAINE -type f -exec file {
 rsfind DOSSIER --print --exec "COMMANDE" = find DOSSIER -print -exec COMMANDE \;: not ok
 rsfind DOSSIER --ename REGEXP = find DOSSIER -name REGEXP: not ok
 rsfind DOSSIER -T REGEXP = grep -r -l DOSSIER -e REGEXP: not ok
-rsfind DOSSIER -p 4 = rsfind DOSSIER: ok
-rsfind DOSSIER -p 4 -i = rsfind DOSSIER -i: ok
-rsfind DOSSIER -p 4 -t CHAINE = rsfind DOSSIER -t CHAINE: ok
