@@ -234,8 +234,6 @@ listOfFiles* applyTOption(listOfFiles* list, char* tArg){
 	listOfFiles* tempList = malloc(sizeof(listOfFiles));
 	tempList = list;
 	
-
-
 	//========== APPLY Restriction on EVERY \{first} ========== 
 
 	while(list -> next != NULL)
@@ -246,14 +244,13 @@ listOfFiles* applyTOption(listOfFiles* list, char* tArg){
 			int fd;
 			char* readFile = "";
 
-			fd = open(completePathBuilder(list), O_RDONLY);
-		
+			fd = open(completePathBuilder(list->next), O_RDONLY);
 			while(read(fd, &BUFF, 1) > 0)
 			{
 				myStrCat(&readFile, &BUFF);
 			}
 			close(fd);
-			if(strstr(readFile, tArg))
+			if(!strstr(readFile, tArg))
 			{
 				supprNextFileOf(&list);
 			}else{
@@ -274,12 +271,11 @@ listOfFiles* applyTOption(listOfFiles* list, char* tArg){
 		int fd;
 
 		fd = open(completePathBuilder(tempList), O_RDONLY);
-		
 		while(read(fd, &BUFF, 1) > 0)
 		{
 			myStrCat(&readFile, &BUFF);
 		}
-		if(strstr(readFile, tArg))
+		if(!strstr(readFile, tArg))
 		{
 			tempList = tempList -> next; 
 		}		
@@ -287,5 +283,5 @@ listOfFiles* applyTOption(listOfFiles* list, char* tArg){
 	}else{
 		tempList = tempList -> next;
 	}
-	return tempList;
+	return tempList;	
 }

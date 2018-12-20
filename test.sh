@@ -15,10 +15,10 @@ truthArray=(
     "find DOSSIER"
     "find DOSSIER -name fir.png"
     "find DOSSIER -print"
-    #"grep -r -l DOSSIER -e CHAINE"
+    "grep -r -l DOSSIER -e l"
     "find DOSSIER -type f -exec file {} \; | grep image | cut -d : -f 1"
     "find DOSSIER -exec ls -l -d {} \;"
-    "find DOSSIER -exec ls -l {} \;" #o
+    "find DOSSIER -exec ls -l {} \;" 
     "find DOSSIER -exec ls -l \;"
     "find DOSSIER -name fir.png -type f -exec file {} \; | grep image | cut -d : -f 1"
     "find DOSSIER -print -exec ls -l {} \;"
@@ -36,7 +36,7 @@ testArray=(
     "./rsfind DOSSIER"
     "./rsfind DOSSIER --name fir.png"
     "./rsfind DOSSIER --print"
-    #"./rsfind DOSSIER -t CHAINE"
+    "./rsfind DOSSIER -t l"
     "./rsfind DOSSIER -i" 
     "./rsfind DOSSIER -l" 
     "./rsfind DOSSIER --exec \"ls -l {}\"" #
