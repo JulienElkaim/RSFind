@@ -7,6 +7,10 @@
 
 //========== Structural Functions ========== 
 
+/*
+ * Create pointer to the read file.
+ */
+
 MyFile* create_File(char* name, char* path, int myIsItAFile){
 
 	MyFile* myFileCreated = malloc(sizeof(MyFile));
@@ -30,6 +34,9 @@ MyFile* create_File(char* name, char* path, int myIsItAFile){
 }
 
 
+/*
+ * Add pointer of read file at the end of the table of the pointer to the files.
+ */
 
 listOfFiles* insertFile(MyFile* newFile, listOfFiles* list){
 	listOfFiles* newList = malloc(sizeof(listOfFiles));
@@ -45,6 +52,10 @@ listOfFiles* insertFile(MyFile* newFile, listOfFiles* list){
 	return list;
 }
 
+/*
+ * Print the list of read files.
+ */
+
 void printListOfFiles(listOfFiles* list){
 	while(list != NULL){
 		printf("%s", list -> myFile -> myPrint);
@@ -52,11 +63,17 @@ void printListOfFiles(listOfFiles* list){
 	}
 }
 
+/*
+ * Copie a pointer from listOfFiles.
+ */
 
 void myListOfFilesPtrCpy(listOfFiles** dest, listOfFiles* ptrToCpy){
 	*dest = ptrToCpy;
 }
 
+/*
+ * Set the list pointer to the next file pointer.
+ */
 
 int nextFile(listOfFiles** list){
 	listOfFiles* temp = malloc(sizeof(listOfFiles));
@@ -70,6 +87,10 @@ int nextFile(listOfFiles** list){
 	}
 }
 
+/*
+ * Change the pointer reference to the file next to the next file, equivalent to delete pointer to the file in list: it won't be reacheable anymore 
+ * when browsing the list.
+ */
 
 int supprNextFileOf(listOfFiles** list){
 	listOfFiles* temp = malloc(sizeof(listOfFiles));
@@ -86,6 +107,10 @@ int supprNextFileOf(listOfFiles** list){
 
 
 //========== Operational Functions ========== 
+
+/*
+ * Translate the mode_t value into printable string.
+ */
 
 char* fonction_permission(struct stat s)
 {	
@@ -113,6 +138,9 @@ char* fonction_permission(struct stat s)
     return string;
 }
 
+/*
+ * Set locale to the french format.
+ */
 
 char* dateFormater(time_t st_mdate)
 {
@@ -129,7 +157,9 @@ char* dateFormater(time_t st_mdate)
 }
 
 
-
+/*
+ * Return pointer of string of the complete path of the file from concatenation of its name with the complete path of its owner.
+ */
 
 char* completePathBuilder(listOfFiles* list){
 	char* pathToBuild = malloc(sizeof(char) * (strlen(list -> myFile -> myPath) + 1 + strlen(list -> myFile -> myName) +1) );
@@ -141,9 +171,17 @@ char* completePathBuilder(listOfFiles* list){
 
 }
 
+/*
+ * Copy refence of a pointer into another.
+ */
+
 void myStrPtrCpy(char** dest, char* ptrToCpy){
 	*dest = ptrToCpy;
 }
+
+/*
+ * Homemade function equivalent to strcat.
+ */
 
 void myStrCat(char** dest, char*c){
 
@@ -154,6 +192,9 @@ void myStrCat(char** dest, char*c){
 }
 
 
+/*
+ * Return length of the given string.
+ */
 
 int myStrLen(char* strToSize){
 	int taille=0;
@@ -163,13 +204,15 @@ int myStrLen(char* strToSize){
 }
 
 
+/*
+ * Add slash to the non void path of the file if it doesn't have already.
+ */
 
 void slashItCorrectly(char** str){
 	
 	char c;
 	int boolean =0, i=0;
 	if(strlen(*str) > 0){
-		//PATH Non vide, add slash if not yet slashed.
 		c = (*str)[i];
 		while(c != '\0'){
 			if (c=='/')
@@ -182,6 +225,10 @@ void slashItCorrectly(char** str){
 		if(boolean == 0){myStrCat(str,"/");}
 	}
 }
+
+/*
+ * Change bracket, if there is one, into path, else do nothing.
+ */
 
 int changeMyBrackets(char** tabOfString, char* thePath){
 	int i = 0;
@@ -206,12 +253,12 @@ char** splitMyString (char* givenStr) {
   const char s[2] = " ";
   char *TempoEltInMyStr;
    
-   char** myStrSplitted =malloc(sizeof(char*)* (countItems(myStr) + 1) );
+   char** myStrSplitted = malloc(sizeof(char*)* (countItems(myStr) + 1) );
    int i = 0;
 
    TempoEltInMyStr = strtok(myStr, s);
    while( TempoEltInMyStr != NULL ) {
-      myStrSplitted[i]= malloc(sizeof(char)* (strlen(TempoEltInMyStr)+1) );
+      myStrSplitted[i] = malloc(sizeof(char)* (strlen(TempoEltInMyStr)+1) );
       strcpy(myStrSplitted[i], TempoEltInMyStr);
       i++;
       TempoEltInMyStr = strtok(NULL, s);

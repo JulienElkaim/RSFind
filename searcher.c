@@ -8,6 +8,9 @@
 #include <dirent.h>
 #include "myFunctionalLib.h"
 
+/*
+ * Browse the entire directory recursively to add each file's pointer in a list except "." and "..". 
+ */
 
 int finderRecursive(listOfFiles* list){	
 

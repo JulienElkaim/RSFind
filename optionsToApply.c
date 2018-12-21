@@ -10,6 +10,9 @@
 #include "myFunctionalLib.h"
 #include <fcntl.h>
 
+/*
+ * Parse option thank to getopt and launch the appropriate function.
+ */
 
 listOfFiles* applyIOption(listOfFiles* list){
 	
@@ -48,6 +51,11 @@ listOfFiles* applyIOption(listOfFiles* list){
 	return tempList;
 
 }
+
+
+/*
+ * Write the result of the executed function in the stdout prescriptor. Return 1 error in execution, else 0.
+ */
 
 int rememberExecResult(char** myEPrint, char** cmd, char* thePath){
 
