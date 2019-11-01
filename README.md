@@ -16,7 +16,7 @@ This repo is a shell function working on Unix systems. It's rôle is to concate 
 
 ## Technical dimension  
 
-Our choices are explained in [an extensive report](rapport.pdf) .  
+Our choices are explained in [an extensive report](Rapport.pdf) .  
 We use asynchrone parsing for the recursive search. Also, we have chosen to use a recursive structure to simulate a list type object _(with some helper function to obtain a "list flavour" behavior)_ .  
 We choose this structure to avoid recomputing some data when combining multiple options. Also, it makes the process much easier ans faster as we apply options in smart way in order to reduce more as possible the process load.  
 In order to execute commands on outputs, we use pipes between processes and manage them with signals.
